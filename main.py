@@ -9,6 +9,7 @@ def convert2gray(frame):
 def downsample(frame):
     return frame[::2, ::2]
 
+
 if __name__ == "__main__":
     env = gym.make('CartPole-v0')
 
