@@ -23,10 +23,6 @@ class Brain:
 
         model = Model(inputs=inputs, outputs=outputs)
         model.compile(optimizer='rmsprop', loss='mse')
-        # model = Sequential()
-        # model.add(Dense(64, activation='relu', input_dim=self.s_dim))
-        # model.add(Dense(self.a_dim, activation='linear'))
-        # model.compile(optimizer='rmsprop', loss='mse')
         return model
 
     def train(self, states, labels, verb=0):
