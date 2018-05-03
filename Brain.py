@@ -2,13 +2,6 @@ from keras.layers import Input, Dense
 from keras.models import Model
 import numpy as np
 
-
-def p_decorate(func):
-    def func_wrapper(self):
-        return func(self)
-    return func_wrapper
-
-
 class Brain:
     def __init__(self, actions_dim, state_dim):
         self.s_dim = state_dim

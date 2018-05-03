@@ -2,6 +2,8 @@ import gym
 import argparse
 import numpy as np
 from CartPoleAI import CartPoleAI
+from PerformanceGraph import print_reward_graph
+from PerformanceGraph import save_data
 
 
 def convert2gray(frame):
@@ -18,7 +20,7 @@ if __name__ == "__main__":
         description="Solve the famous cart pole problem using a Deep reinforcement learning approach")
 
     parser.add_argument('--debug', '-d', dest="debug", default=True, help="save some performance data")
-    parser.add_argument('--episode', '-e', '-n', dest="episode", default=1000, help="set the max number of episode")
+    parser.add_argument('--episode', '-e', '-n', dest="episode", default=800, help="set the max number of episode")
     parser.add_argument('--maxsteps', '-ms', dest="max_steps", default=1000, help="set the max number of steps for each episode")
     parser.add_argument('--render', '-r', dest="render", default=False, help="if true render the cart pole")
 
@@ -32,10 +34,8 @@ if __name__ == "__main__":
     env = gym.make('CartPole-v0')
     env._max_episode_steps = maxsteps
     agent = CartPoleAI(env.action_space.n, env.observation_space.shape[0])
+    rewards = np.zeros(n_episode)
     try:
-
-        rewards = np.zeros(n_episode)
-
         for i in range(n_episode):
             state = env.reset()
             state = state.reshape(1, 4)
@@ -66,5 +66,11 @@ if __name__ == "__main__":
 
     finally:
         print("Finished")
-    
+        if debug:
+            name = "no_prioritized_mem"
+            save_data(rewards, name)
+            print_reward_graph(rewards, name)
+
     env.close()
+
+
